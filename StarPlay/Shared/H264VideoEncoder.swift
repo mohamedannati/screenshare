@@ -41,9 +41,14 @@ final class H264VideoEncoder {
         self.onFrame = onFrame
 
         var session: VTCompressionSession?
-        let encoderSpecification: CFDictionary = [
-            kVTVideoEncoderSpecification_EnableHardwareAcceleratedVideoEncoder: true
-        ] as CFDictionary
+        let encoderSpecification: CFDictionary?
+        if #available(iOS 17.4, *) {
+            encoderSpecification = [
+                kVTVideoEncoderSpecification_EnableHardwareAcceleratedVideoEncoder: true
+            ] as CFDictionary
+        } else {
+            encoderSpecification = nil
+        }
         let imageBufferAttributes: CFDictionary = [
             kCVPixelBufferPixelFormatTypeKey: kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange,
             kCVPixelBufferWidthKey: width,
