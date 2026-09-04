@@ -62,7 +62,7 @@ final class BroadcastSession {
                 let session = Unmanaged<BroadcastSession>.fromOpaque(observer).takeUnretainedValue()
                 session.onHostStopRequested?()
             },
-            CFNotificationName(rawValue: BroadcastControlChannel.stopNotification as CFString),
+            BroadcastControlChannel.stopNotification as CFString,
             nil,
             .deliverImmediately
         )
